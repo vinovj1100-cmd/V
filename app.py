@@ -245,13 +245,13 @@ def parse_receiving_data(text_data):
 def generate_user_guide():
     pdf = FPDF()
     pdf.add_page()
-    pdf.set_font("Helvetica", "B", 16)
-    pdf.cell(0, 10, "Ozon WMS Pro - User Guide", new_x="LMARGIN", new_y="NEXT", align="C")
+    pdf.set_font("Arial", 'B', 16)
+    pdf.cell(0, 10, "Ozon WMS Pro - User Guide", ln=True, align='C')
     pdf.ln(10)
-    for title, desc in [("Dashboard:", "View warehouse metrics."), ("Inbound Receiving:", "Scan new SKUs."), ("Inventory Hub:", "Live view of all warehouse stock."), ("PDF Sequencer:", "Map a sequence of tracking IDs to PDF pages.")]:
-        pdf.set_font("Helvetica", "B", 12)
-        pdf.cell(0, 8, title, new_x="LMARGIN", new_y="NEXT")
-        pdf.set_font("Helvetica", "", 11)
+    for title, desc in [("Dashboard:", "View warehouse metrics."), ("Inbound Receiving:", "Scan new SKUs."), ("Inventory Hub:", "Live view of all warehouse stock."), ("PDF Sequencer:", "Map a sequence to print sorted PDFs."), ("Auditor:", "Paste expected vs actual IDs.")]:
+        pdf.set_font("Arial", 'B', 12)
+        pdf.cell(0, 8, title, ln=True)
+        pdf.set_font("Arial", '', 11)
         pdf.multi_cell(0, 6, desc)
         pdf.ln(4)
         
@@ -380,7 +380,7 @@ with tabs[1]:
             with c3: qty_col = st.selectbox("Quantity", available_cols)
             with c4: loc_col = st.selectbox("Location (Optional)", [None] + available_cols)
             
-            preview = [{'sku': str(r[sku_col]).strip(), 'product': str(r[prod_col]).strip(), 'quantity': int(r[qty_col]) if pd.notna(r[qty_col]) else 1, 'location': str(r[loc_col]).strip() if loc_col and pd.notna(r[loc_col]) else "UNASSIGNED"} for _, r in df.iterrows()]
+            preview = [{'sku': str(r[sku_col]).strip(), 'product': str(r[prod_col]).strip(), 'quantity': int(r[qty_col]) if pd.notna(r[qty_col]) else 1, 'location': str(r[loc_col]).strip() if loc_col and pd.notna(r[loc_col]) else 'UNASSIGNED'} for _, r in df.iterrows()]
             st.dataframe(pd.DataFrame(preview), use_container_width=True)
             if st.button("✅ Receive All"):
                 for item in preview: receive_inventory(item['sku'], item['quantity'], item['product'], item['location'])
