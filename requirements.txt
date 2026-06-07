@@ -1,0 +1,11 @@
+streamlit
+pandas
+pytesseract
+pypdf
+pdf2image
+pyzbar
+pillow
+numpy
+deep_translator
+fpdf2
+opencv-python-headless
